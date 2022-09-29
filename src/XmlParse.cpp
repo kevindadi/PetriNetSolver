@@ -17,10 +17,10 @@ PetriNet PNMLParse::read(const char* filename) {
     }
 
     XMLElement *pnmlElement = doc.RootElement();
-    XMLElement *netElement = pnmlElement->FirstChildElement();
-    XMLElement *pageElement = netElement->FirstChildElement("page");
+    XMLElement *netElement = pnmlElement->FirstChildElement("net");
+//    XMLElement *pageElement = netElement->FirstChildElement("page");
 
-    for (XMLElement *petriElement = pageElement->FirstChildElement();
+    for (XMLElement *petriElement = netElement->FirstChildElement();
         petriElement;
         petriElement = petriElement->NextSiblingElement()){
         Place p;
@@ -48,7 +48,7 @@ PetriNet PNMLParse::read(const char* filename) {
             result.transition.push_back(t);
         }
         if (petriElement->Value() == "arc") {
-            XMLAttribute* arcAttr = const_cast<XMLAttribute *>(petriElement->FirstAttribute());
+            auto* arcAttr = const_cast<XMLAttribute *>(petriElement->FirstAttribute());
             arc.id = arcAttr->Value();
             arcAttr = const_cast<XMLAttribute *>(arcAttr->Next());
             arc.source = arcAttr->Value();
@@ -61,16 +61,16 @@ PetriNet PNMLParse::read(const char* filename) {
 
     for (int i = 0; i < arcNum; i++){
         for (int j = 0; j < n; ++j) {
-            if (result.arc[i].source.compare(result.transition[j].name) == 0){
+            if (result.arc[i].source == result.transition[j].name){
                 result.arc[i].sourceT = 1;
                 result.arc[i].sourceNum = result.transition[j].num;
             }
-            if (result.arc[i].target.compare(result.transition[j].name) == 0){
+            if (result.arc[i].target == result.transition[j].name){
                 result.arc[i].targetNum = j;
             }
         }
         for (int k = 0; k < m; k++) {//和库所比
-            if (result.arc[i].source.compare(result.place[k].name) == 0) {
+            if (result.arc[i].source == result.place[k].name) {
                 result.arc[i].sourceP = 1;
                 result.arc[i].sourceNum = result.place[k].num;
             }
@@ -89,4 +89,18 @@ void PNMLParse::write() {
 
 PNMLParse::~PNMLParse(){
     std::cout << "忍不住赋诗一首" << std::endl;
+}
+
+PNMLParse::PNMLParse() = default;
+
+XmlParse::XmlParse() = default;
+
+XmlParse::~XmlParse() = default;
+
+PetriNet XmlParse::read(const char *filename) {
+    return PetriNet();
+}
+
+void XmlParse::write() {
+
 }

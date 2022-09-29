@@ -4,13 +4,13 @@
 
 
 #include <iostream>
-#include "../include/XmlParse.h"
-#include "../include/ReachGraph.h"
+#include "XmlParse.h"
+#include "ReachGraph.h"
 using namespace std;
 
 int main(int argc, char* argv[]){
-    const char* filename = "doc.xml";
-    XmlParse xp;
+    const char* filename = "pn.xml";
+    PNMLParse xp;
     ReachGraph rg;
     rg.pn = xp.read(filename);
     rg.pn.getA();

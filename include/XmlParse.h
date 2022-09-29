@@ -25,10 +25,10 @@ public:
 class PNMLParse : public XmlParse {
 public:
     PNMLParse();
-    ~PNMLParse();
+    ~PNMLParse() override;
 
-    PetriNet read(const char* filename);
-    void write();
+    PetriNet read(const char* filename) override;
+    void write() override;
 private:
     string path;
 };

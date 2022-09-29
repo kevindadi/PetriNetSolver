@@ -17,3 +17,11 @@ void PetriNet::getA() {
         }
     }
 }
+
+PetriNet::PetriNet() {
+
+}
+
+PetriNet::~PetriNet() {
+
+}

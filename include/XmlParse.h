@@ -19,7 +19,8 @@ public:
 
     string name;
     virtual PetriNet read(const char* filename);
-    virtual void write();
+
+    __attribute__((unused)) virtual void write();
 };
 
 class PNMLParse : public XmlParse {

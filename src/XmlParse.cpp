@@ -74,7 +74,7 @@ PetriNet PNMLParse::read(const char* filename) {
                 result.arc[i].sourceP = 1;
                 result.arc[i].sourceNum = result.place[k].num;
             }
-            if (result.arc[i].target.compare(result.place[k].name) == 0) {
+            if (result.arc[i].target == result.place[k].name) {
                 result.arc[i].targetNum = k;
             }
         }
@@ -84,23 +84,28 @@ PetriNet PNMLParse::read(const char* filename) {
 }
 
 void PNMLParse::write() {
-    std::cout << "不会写了" << std::endl;
+    cout << "不会写了" << endl;
 }
 
 PNMLParse::~PNMLParse(){
-    std::cout << "忍不住赋诗一首" << std::endl;
+    cout << "忍不住赋诗一首" << endl;
+    delete(this);
 }
 
-PNMLParse::PNMLParse() = default;
+PNMLParse::PNMLParse() {
+    cout << "解析器构造完成" << endl;
+    this->path = string("defalut");
+    this->name = string("pnml");
+};
 
 XmlParse::XmlParse() = default;
 
 XmlParse::~XmlParse() = default;
 
 PetriNet XmlParse::read(const char *filename) {
-    return PetriNet();
+    return {};
 }
 
-void XmlParse::write() {
+__attribute__((unused)) void XmlParse::write() {
 
 }

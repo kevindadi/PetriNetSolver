@@ -4,7 +4,7 @@
 
 #include "../include/XmlParse.h"
 #include <iostream>
-
+#include <boost/log/trivial.hpp>
 
 PetriNet PNMLParse::read(const char* filename) {
     int m = 0, n =0, arcNum = 0;
@@ -12,7 +12,7 @@ PetriNet PNMLParse::read(const char* filename) {
     XMLDocument doc;
     auto loadOk = doc.LoadFile(filename);
     if (!loadOk) {
-        std::cout << "加载文件失败" << std::endl;
+        BOOST_LOG_TRIVIAL(error) << "加载文件失败";
         exit(1);
     }
 
@@ -58,7 +58,7 @@ PetriNet PNMLParse::read(const char* filename) {
             result.arc.push_back(arc);
         }
     }
-
+    BOOST_LOG_TRIVIAL(info) << "抽取Petri网元素完成";
     for (int i = 0; i < arcNum; i++){
         for (int j = 0; j < n; ++j) {
             if (result.arc[i].source == result.transition[j].name){
@@ -79,16 +79,16 @@ PetriNet PNMLParse::read(const char* filename) {
             }
         }
     }
-
+    BOOST_LOG_TRIVIAL(info) << "解析完成";
     return result;
 }
 
 void PNMLParse::write() {
-    cout << "不会写了" << endl;
+    BOOST_LOG_TRIVIAL(info) << "不会写了";
 }
 
 PNMLParse::~PNMLParse(){
-    cout << "忍不住赋诗一首" << endl;
+    BOOST_LOG_TRIVIAL(info) << "忍不住赋诗一首";
     delete(this);
 }
 
